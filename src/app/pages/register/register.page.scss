@@ -1,0 +1,44 @@
+.register-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+ion-card {
+  margin-bottom: 20px;
+}
+
+ion-button[expand="block"] {
+  margin-top: 20px;
+}
+
+ion-item {
+  margin-bottom: 10px;
+}
+
+ion-select {
+  width: 100%;
+}
+
+.biometric-section {
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.offline-notice {
+  background: var(--ion-color-warning);
+  color: var(--ion-color-warning-contrast);
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  text-align: center;
+}

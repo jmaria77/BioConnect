@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="dashboard-container">
+    <!-- Información del usuario -->
+    <ion-card *ngIf="currentUser">
+      <ion-card-header>
+        <ion-card-title>Bienvenido, {{ currentUser.username }}</ion-card-title>
+        <ion-card-subtitle>Rol: {{ currentUser.role | titlecase }}</ion-card-subtitle>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-item>
+          <ion-icon name="person" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Usuario: {{ currentUser.username }}</h3>
+            <p>ID: {{ currentUser.id }}</p>
+          </ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-icon name="shield-checkmark" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Autenticación Biométrica</h3>
+            <p>Reconocimiento facial configurado</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Estado de conexión -->
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-icon 
+            [name]="isOnline ? 'wifi' : 'wifi-off'" 
+            [color]="isOnline ? 'success' : 'danger'" 
+            slot="start">
+          </ion-icon>
+          <ion-label>
+            <h3>{{ isOnline ? 'Conectado' : 'Sin Conexión' }}</h3>
+            <p>{{ isOnline ? 'Sincronización automática activa' : 'Modo offline' }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Estado de sincronización -->
+    <ion-card *ngIf="syncStatus.pendingItems > 0">
+      <ion-card-content>
+        <ion-item>
+          <ion-icon name="sync" color="warning" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Datos Pendientes</h3>
+            <p>{{ syncStatus.pendingItems }} elementos esperando sincronización</p>
+          </ion-label>
+          <ion-button 
+            fill="outline" 
+            size="small"
+            (click)="forceSync()"
+            [disabled]="!isOnline">
+            Sincronizar Ahora
+          </ion-button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Última sincronización -->
+    <ion-card *ngIf="currentUser?.lastSync">
+      <ion-card-content>
+        <ion-item>
+          <ion-icon name="time" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Última Sincronización</h3>
+            <p>{{ currentUser.lastSync | date:'medium' }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Acciones rápidas -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Acciones</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-button 
+          expand="block" 
+          fill="outline"
+          (click)="reauthenticate()"
+          class="ion-margin-bottom">
+          <ion-icon name="camera" slot="start"></ion-icon>
+          Reautenticar con Rostro
+        </ion-button>
+        
+        <ion-button 
+          expand="block" 
+          fill="outline"
+          (click)="viewProfile()"
+          class="ion-margin-bottom">
+          <ion-icon name="person" slot="start"></ion-icon>
+          Ver Perfil
+        </ion-button>
+        
+        <ion-button 
+          expand="block" 
+          fill="outline"
+          (click)="syncNow()"
+          [disabled]="!isOnline">
+          <ion-icon name="sync" slot="start"></ion-icon>
+          Sincronizar Ahora
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

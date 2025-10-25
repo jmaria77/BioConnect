@@ -1,0 +1,14 @@
+{
+  "tinyFaceDetector": {
+    "manifestUrl": "tiny_face_detector_model-weights_manifest.json"
+  },
+  "faceLandmark68Net": {
+    "manifestUrl": "face_landmark_68_model-weights_manifest.json"
+  },
+  "faceRecognitionNet": {
+    "manifestUrl": "face_recognition_model-weights_manifest.json"
+  },
+  "faceExpressionNet": {
+    "manifestUrl": "face_expression_model-weights_manifest.json"
+  }
+}

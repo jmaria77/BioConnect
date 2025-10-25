@@ -1,0 +1,75 @@
+.dashboard-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+ion-card {
+  margin-bottom: 20px;
+}
+
+.user-info {
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.connected {
+  background: var(--ion-color-success);
+  color: var(--ion-color-success-contrast);
+}
+
+.disconnected {
+  background: var(--ion-color-danger);
+  color: var(--ion-color-danger-contrast);
+}
+
+.sync-status {
+  background: var(--ion-color-warning);
+  color: var(--ion-color-warning-contrast);
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.actions-section {
+  margin-top: 30px;
+}
+
+.action-button {
+  margin: 10px 0;
+  width: 100%;
+}
+
+.user-profile {
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "bioConnectApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

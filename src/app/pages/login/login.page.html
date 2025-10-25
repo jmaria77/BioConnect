@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Autenticación Facial</ion-card-title>
+        <ion-card-subtitle>Usa tu rostro para iniciar sesión</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- Botón de autenticación facial -->
+        <ion-button 
+          expand="block" 
+          size="large"
+          (click)="authenticateWithFace()"
+          [disabled]="isAuthenticating"
+          class="ion-margin-vertical">
+          <ion-icon name="camera" slot="start"></ion-icon>
+          <ion-spinner *ngIf="isAuthenticating" name="crescent"></ion-spinner>
+          <span *ngIf="!isAuthenticating">Autenticar con Rostro</span>
+        </ion-button>
+
+        <!-- Información adicional -->
+        <div class="ion-text-center ion-margin-top">
+          <p>Coloca tu rostro frente a la cámara para autenticarte</p>
+        </div>
+
+        <!-- Enlace a registro -->
+        <div class="ion-text-center ion-margin-top">
+          <ion-button fill="clear" routerLink="/register">
+            ¿No tienes cuenta? Regístrate
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Información de estado offline -->
+    <ion-card *ngIf="!isOnline">
+      <ion-card-content>
+        <ion-item>
+          <ion-icon name="cloud-offline" color="warning" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Modo Offline</h3>
+            <p>Autenticación local disponible</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Estado de sincronización -->
+    <ion-card *ngIf="syncStatus.pendingItems > 0">
+      <ion-card-content>
+        <ion-item>
+          <ion-icon name="sync" color="primary" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Datos Pendientes</h3>
+            <p>{{ syncStatus.pendingItems }} elementos esperando sincronización</p>
+          </ion-label>
+          <ion-button 
+            fill="outline" 
+            size="small"
+            (click)="forceSync()"
+            [disabled]="!isOnline">
+            Sincronizar
+          </ion-button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
