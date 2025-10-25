@@ -1,75 +1,50 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Iniciar Sesión</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
-  <div class="login-container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Autenticación Facial</ion-card-title>
-        <ion-card-subtitle>Usa tu rostro para iniciar sesión</ion-card-subtitle>
-      </ion-card-header>
+  <div class="login-box">
+    <h2>Iniciar Sesión</h2>
+    <p>Usa tu rostro para acceder a tu cuenta</p>
 
-      <ion-card-content>
-        <!-- Botón de autenticación facial -->
-        <ion-button 
-          expand="block" 
-          size="large"
-          (click)="authenticateWithFace()"
-          [disabled]="isAuthenticating"
-          class="ion-margin-vertical">
-          <ion-icon name="camera" slot="start"></ion-icon>
+    <div class="login-card">
+      <div class="section">
+        <div class="section-info">
+          <ion-icon name="camera-outline" class="icon"></ion-icon>
+          <div>
+            <h3>Autenticación Facial</h3>
+            <p>Coloca tu rostro frente a la cámara para autenticarte</p>
+          </div>
+        </div>
+        <ion-button expand="block" class="btn-capturar" (click)="authenticateWithFace()" [disabled]="isAuthenticating">
+          <ion-icon name="scan-outline" slot="start"></ion-icon>
           <ion-spinner *ngIf="isAuthenticating" name="crescent"></ion-spinner>
           <span *ngIf="!isAuthenticating">Autenticar con Rostro</span>
         </ion-button>
+      </div>
 
-        <!-- Información adicional -->
-        <div class="ion-text-center ion-margin-top">
-          <p>Coloca tu rostro frente a la cámara para autenticarte</p>
-        </div>
-
-        <!-- Enlace a registro -->
-        <div class="ion-text-center ion-margin-top">
-          <ion-button fill="clear" routerLink="/register">
-            ¿No tienes cuenta? Regístrate
-          </ion-button>
-        </div>
-      </ion-card-content>
-    </ion-card>
-
-    <!-- Información de estado offline -->
-    <ion-card *ngIf="!isOnline">
-      <ion-card-content>
-        <ion-item>
-          <ion-icon name="cloud-offline" color="warning" slot="start"></ion-icon>
-          <ion-label>
+      <div class="section">
+        <div class="section-info">
+          <ion-icon name="cloud-offline-outline" class="icon"></ion-icon>
+          <div>
             <h3>Modo Offline</h3>
             <p>Autenticación local disponible</p>
-          </ion-label>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
+          </div>
+        </div>
+      </div>
 
-    <!-- Estado de sincronización -->
-    <ion-card *ngIf="syncStatus.pendingItems > 0">
-      <ion-card-content>
-        <ion-item>
-          <ion-icon name="sync" color="primary" slot="start"></ion-icon>
-          <ion-label>
+      <div class="section" *ngIf="syncStatus?.pendingItems > 0">
+        <div class="section-info">
+          <ion-icon name="sync-outline" class="icon"></ion-icon>
+          <div>
             <h3>Datos Pendientes</h3>
             <p>{{ syncStatus.pendingItems }} elementos esperando sincronización</p>
-          </ion-label>
-          <ion-button 
-            fill="outline" 
-            size="small"
-            (click)="forceSync()"
-            [disabled]="!isOnline">
-            Sincronizar
-          </ion-button>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
+          </div>
+        </div>
+        <ion-button expand="block" fill="outline" (click)="forceSync()" [disabled]="!isOnline">
+          Sincronizar
+        </ion-button>
+      </div>
+    </div>
+
+    <ion-button expand="block" fill="clear" routerLink="/register" class="btn-link">
+      ¿No tienes cuenta? <strong>Regístrate</strong>
+    </ion-button>
   </div>
 </ion-content>

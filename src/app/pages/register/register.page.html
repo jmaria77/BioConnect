@@ -1,125 +1,125 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Registro de Usuario</ion-title>
+<ion-header translucent="true">
+  <ion-toolbar color="light">
+    <ion-title class="title">Registro de Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="register-container">
-    <ion-card>
-      <ion-card-header>
+<ion-content [fullscreen]="true" class="ion-padding register-page">
+  <div class="register-container animate__animated animate__fadeIn">
+    <ion-card class="register-card">
+      <ion-card-header class="ion-text-center">
         <ion-card-title>Crear Cuenta</ion-card-title>
-        <ion-card-subtitle>Registra tu información y configura reconocimiento facial</ion-card-subtitle>
+        <ion-card-subtitle>
+          Registra tu información y configura tu acceso facial
+        </ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
         <form (ngSubmit)="onRegister()" #registerForm="ngForm">
-          <!-- Campo Usuario -->
-          <ion-item>
-            <ion-label position="stacked">Nombre de Usuario</ion-label>
-            <ion-input 
-              type="text" 
-              [(ngModel)]="userData.username" 
+
+          <!-- Nombre de usuario -->
+          <ion-item lines="full">
+            <ion-label position="floating">Nombre de Usuario</ion-label>
+            <ion-input
+              type="text"
+              [(ngModel)]="userData.username"
               name="username"
               required
-              placeholder="Ingresa tu nombre de usuario">
+              clearInput
+              placeholder="Ej: jlopez23">
             </ion-input>
           </ion-item>
 
-          <!-- Campo Rol -->
-          <ion-item>
-            <ion-label position="stacked">Rol</ion-label>
-            <ion-select 
-              [(ngModel)]="userData.role" 
+          <!-- Rol -->
+          <ion-item lines="full">
+            <ion-label position="floating">Rol</ion-label>
+            <ion-select
+              interface="alert"
+              placeholder="Selecciona tu rol"
+              [(ngModel)]="userData.role"
               name="role"
-              required
-              placeholder="Selecciona tu rol">
+              required>
               <ion-select-option value="trabajador">Trabajador</ion-select-option>
-              <ion-select-option value="encargador">Encargador</ion-select-option>
+              <ion-select-option value="encargado">Encargado</ion-select-option>
             </ion-select>
           </ion-item>
 
-          <!-- Sección de Biometría -->
-          <ion-item>
-            <ion-label>
-              <h3>Reconocimiento Facial</h3>
-              <p>Configura tu biometría para autenticación</p>
-            </ion-label>
-            <ion-button 
-              fill="outline" 
-              (click)="captureBiometric()"
-              [disabled]="isCapturing">
-              <ion-icon name="camera" slot="start"></ion-icon>
-              <ion-spinner *ngIf="isCapturing" name="crescent"></ion-spinner>
-              <span *ngIf="!isCapturing">{{ biometricCaptured ? 'Recapturar' : 'Capturar' }}</span>
-            </ion-button>
-          </ion-item>
+          <!-- Biometría -->
+          <div class="biometric-section ion-margin-top">
+            <ion-item lines="none">
+              <ion-icon name="face-outline" slot="start" color="primary"></ion-icon>
+              <ion-label>
+                <h3>Reconocimiento Facial</h3>
+                <p>Configura tu autenticación biométrica</p>
+              </ion-label>
+              <ion-button
+                fill="solid"
+                color="success"
+                (click)="captureBiometric()"
+                [disabled]="isCapturing"
+                size="small">
+                <ion-spinner *ngIf="isCapturing" name="crescent"></ion-spinner>
+                <span *ngIf="!isCapturing">{{ biometricCaptured ? 'Recapturar' : 'Capturar' }}</span>
+              </ion-button>
+            </ion-item>
 
-          <!-- Botón de prueba de cámara -->
-          <ion-item>
-            <ion-label>
-              <h3>Prueba de Cámara</h3>
-              <p>Verifica que la cámara funcione correctamente</p>
-            </ion-label>
-            <ion-button 
-              fill="clear" 
-              color="secondary"
-              (click)="testCamera()"
-              [disabled]="isCapturing">
-              <ion-icon name="camera-outline" slot="start"></ion-icon>
-              Probar Cámara
-            </ion-button>
-          </ion-item>
+            <ion-item lines="none">
+              <ion-icon name="camera-outline" slot="start" color="secondary"></ion-icon>
+              <ion-label>
+                <h3>Prueba de Cámara</h3>
+                <p>Verifica que la cámara funcione correctamente</p>
+              </ion-label>
+              <ion-button
+                fill="outline"
+                color="medium"
+                (click)="testCamera()"
+                size="small">
+                Probar
+              </ion-button>
+            </ion-item>
 
-          <!-- Estado de la biometría -->
-          <ion-item *ngIf="biometricCaptured">
-            <ion-icon name="checkmark-circle" color="success" slot="start"></ion-icon>
-            <ion-label>
-              <h3>Biometría Configurada</h3>
-              <p>Reconocimiento facial listo para registro</p>
-            </ion-label>
-          </ion-item>
-
-          <!-- Imagen capturada (opcional, para debug) -->
-          <ion-item *ngIf="capturedImageUri && biometricCaptured">
-            <ion-label>
-              <h3>Imagen Capturada</h3>
-              <p>Foto procesada exitosamente</p>
-            </ion-label>
-            <ion-icon name="image" color="primary" slot="end"></ion-icon>
-          </ion-item>
+            <ion-item *ngIf="biometricCaptured" lines="none" class="ion-margin-top">
+              <ion-icon name="checkmark-circle" color="success" slot="start"></ion-icon>
+              <ion-label>
+                <h3>Biometría Configurada</h3>
+                <p>Reconocimiento facial listo</p>
+              </ion-label>
+            </ion-item>
+          </div>
 
           <!-- Botón de registro -->
-          <ion-button 
-            expand="block" 
-            type="submit" 
+          <ion-button
+            expand="block"
+            type="submit"
+            color="primary"
             [disabled]="!registerForm.valid || !biometricCaptured || isRegistering"
-            class="ion-margin-top">
+            class="ion-margin-top register-btn">
             <ion-spinner *ngIf="isRegistering" name="crescent"></ion-spinner>
             <span *ngIf="!isRegistering">Registrar</span>
           </ion-button>
 
-          <!-- Enlace a login -->
+          <!-- Enlace login -->
           <div class="ion-text-center ion-margin-top">
-            <ion-button fill="clear" routerLink="/login">
-              ¿Ya tienes cuenta? Inicia sesión
+            <ion-text color="medium">
+              ¿Ya tienes cuenta?
+            </ion-text>
+            <ion-button fill="clear" size="small" routerLink="/login">
+              Inicia sesión
             </ion-button>
           </div>
         </form>
       </ion-card-content>
     </ion-card>
 
-    <!-- Información de estado offline -->
-    <ion-card *ngIf="!isOnline">
-      <ion-card-content>
-        <ion-item>
-          <ion-icon name="cloud-offline" color="warning" slot="start"></ion-icon>
-          <ion-label>
-            <h3>Modo Offline</h3>
-            <p>Los datos se sincronizarán cuando haya conexión</p>
-          </ion-label>
-        </ion-item>
-      </ion-card-content>
+    <!-- Estado offline -->
+    <ion-card *ngIf="!isOnline" color="warning" class="offline-card">
+      <ion-item lines="none">
+        <ion-icon name="cloud-offline" slot="start"></ion-icon>
+        <ion-label>
+          <h3>Modo Offline</h3>
+          <p>Los datos se sincronizarán cuando haya conexión</p>
+        </ion-label>
+      </ion-item>
     </ion-card>
   </div>
 </ion-content>
